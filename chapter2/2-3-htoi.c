@@ -65,46 +65,36 @@ int32_t htoi(char target[], int16_t length)
 				case 'a':
 				{
 					clean[j] = 10;
-					++converted_length;
-					++j;
 					break;
 				}
 				case 'b':
 				{
 					clean[j] = 11;
-					++converted_length;
-					++j;
 					break;
 				}
 				case 'c':
 				{
 					clean[j] = 12;
-					++converted_length;
-					++j;
 					break;
 				}
 				case 'd':
 				{
 					clean[j] = 13;
-					++converted_length;
-					++j;
 					break;
 				}
 				case 'e':
 				{
 					clean[j] = 14;
-					++converted_length;
-					++j;
 					break;
 				}
 				case 'f':
 				{
 					clean[j] = 15;
-					++converted_length;
-					++j;
 					break;
 				}
 			}
+			++converted_length;
+			++j;
 		}
 		else if(target[i] > '0' && target[i] < '9')
 		{
