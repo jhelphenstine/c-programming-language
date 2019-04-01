@@ -34,6 +34,9 @@ int main(void)
 	return 0;
 }
 
+/* Objective is to strip all chars from our source string which
+	match on members of a second string. As this is just an exercise,
+	I'm going to have a hard-coded 2nd string (see the #define) */
 void squeeze(char target[], char source[], int16_t length)
 {
 	int8_t flag = 0;
