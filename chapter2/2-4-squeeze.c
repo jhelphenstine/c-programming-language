@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #define MAX 1000
 #define WHEEL_OF_FORTUNE "RSTLNE"
@@ -39,20 +40,19 @@ int main(void)
 	I'm going to have a hard-coded 2nd string (see the #define) */
 void squeeze(char target[], char source[], int16_t length)
 {
-	int8_t flag = 0;
-	int16_t j = 0;	/* iterator */
-	int16_t k = 0;	/* second iterator */
+	int8_t flag = false;
+	int16_t k = 0;	/* iterator, but need it after its loop */
 	
 	for (int16_t i = 0; i < length; ++i)
 	{
-		for(j = 0; j < WHEEL_LENGTH; ++j)
+		for(int16_t j = 0; j < WHEEL_LENGTH; ++j)
 		{
 			if(target[i] == source[j])
 			{
-				flag = 1;
+				flag = true;
 			}
 		}
-		if(flag == 1)
+		if(flag == true)
 		{
 			for(k = i; k < length; ++k)
 			{
@@ -61,7 +61,7 @@ void squeeze(char target[], char source[], int16_t length)
 			target[k+1] = '\0';
 			--i;	/* must decrement iterator as we are 'shifting' */
 			--length; /* similarly we are shifting, so overall length decreases */
-			flag = 0;	/* clear the flag */
+			flag = false;	/* clear the flag */
 		}
 	}
 	return;
