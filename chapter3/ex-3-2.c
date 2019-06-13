@@ -1,4 +1,5 @@
 /* Convert escaped characters into visual form, such as \n and \t */
+/* TODO: Write second converter, reverse of first */
 #include <stdio.h>
 #define MAX 10000
 
