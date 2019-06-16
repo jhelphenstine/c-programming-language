@@ -1,0 +1,14 @@
+Exercise 3-3. Write a function expand (s 1, s2) that expands shorthand notations like a - z in the string s1 into the equivalent complete list abc ... xyz in s2. Allow for letters of either case and digits, and be prepared to handle cases like a-b-c and a-zO-9 and -a-z. Arrange that a leading or trailing - is taken literally
+
+If encountering a-z
+	populate abc...xyz
+else if encountering A-Z
+	populate ABC...XYZ
+else if encountering 0-9
+	populate 012...789
+else if (leading -) || (trailing -)
+	populate -
+
+a-b-c should do nothing
+
+Possible approach: Use the numerical values of the ASCII chars
