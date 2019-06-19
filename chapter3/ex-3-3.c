@@ -3,6 +3,8 @@
 #include <string.h>
 
 #define MAX 1000
+#define ALPHABET_RANGE 26
+#define NUM_RANGE 10
 
 void expand(char s1[], char s2[]);
 
@@ -41,11 +43,13 @@ void expand(char s1[], char s2[])
 					for(int i = s1[s1_index]; i <= s1[s1_index+2]; ++i){
 						s2[s2_index + (i-s1[s1_index])] = i;
 					}
-					s1_index += 2;
-					s2_index += 26;
+					s1_index += 2; /* Advance s1 index */
+					s2_index += ALPHABET_RANGE;
 					break;
 				}
 				else {
+					/* This is necessary because we can't force ourselves
+						to execute the default case code */
 					s2[s2_index] = s1[s1_index];
 					s2_index++;
 					break;
@@ -56,11 +60,13 @@ void expand(char s1[], char s2[])
 					for(int i = s1[s1_index]; i <= s1[s1_index+2]; ++i){
 						s2[s2_index + (i-s1[s1_index])] = i;
 					}
-					s1_index += 2;
-					s2_index += 10;
+					s1_index += 2; /* Advance s1 index */
+					s2_index += NUM_RANGE;
 					break;
 				}
 				else {
+					/* This is necessary because we can't force ourselves
+						to execute the default case code */
 					s2[s2_index] = s1[s1_index];
 					s2_index++;
 					break;
