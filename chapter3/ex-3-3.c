@@ -4,7 +4,7 @@
 
 #define MAX 1000
 
-void expand(int min, int max, char output[], int index);
+void expand(char s1[], char s2[]);
 
 int main(void)
 {
@@ -21,58 +21,56 @@ int main(void)
 	}
 	user_input[n] = '\0';	/* terminate the string */
 
-	int j = 0;	/* we'll need an index on our output string */
-	for (int i = 0; i < strlen(user_input); ++i){
-		if(tolower(user_input[i]) == 'a'){
-			if(user_input[i+1] == '-'){
-				if(tolower(user_input[i+2]) == 'z'){
-					expand('a', 'z', output, j); /*invoke expand, a-z*/
-					i+=2;	/* iterate ahead past the -z */
-					j+=26;	/* advance output index */
-				}
-				else {
-					output[j] = user_input[i];
-					j++;
-				}
-			}
-			else {
-				output[j] = user_input[i];
-				j++;
-			}
-		}
-		else if(user_input[i] == '0'){
-			if(user_input[i+1] == '-'){
-				if(user_input[i+2] == '9'){
-					expand('0', '9', output, j); /* invoke expand, 0-9 */
-					i+=2;	/* iterate past the -z */
-					j+=10;	/* advance output index */
-				}
-				else {
-					output[j] = user_input[i];
-					j++;
-				}
-			}
-			else {
-				output[j] = user_input[i];
-				j++;
-			}
-		}
-		else {
-			output[j] = user_input[i];
-			j++;
-		}
-	}
-	output[j] = '\n';
+	expand(user_input, output);
 
-	printf("Output string: \n%s", output);
+	printf("Output string is: %s\n", output);
 	return 0;
 }
 
-/* We take advantage of chars being ints */
-void expand (int min, int max, char output[], int index)
+/* Function to expand a-z and 0-9 */
+void expand(char s1[], char s2[])
 {
-	for(int i = min; i <= max; ++i){
-		output[index+(i-min)] = i;
+	int s1_index = 0;
+	int s2_index = 0;
+	for(s1_index; s1_index < strlen(s1); s1_index++)
+	{
+		switch(tolower(s1[s1_index])) {
+			case 'a':
+				if((s1[s1_index+1] == '-') && \
+					(tolower(s1[s1_index+2]) == 'z')) {
+					for(int i = s1[s1_index]; i <= s1[s1_index+2]; ++i){
+						s2[s2_index + (i-s1[s1_index])] = i;
+					}
+					s1_index += 2;
+					s2_index += 26;
+					break;
+				}
+				else {
+					s2[s2_index] = s1[s1_index];
+					s2_index++;
+					break;
+				}
+			case '0':
+				if((s1[s1_index+1] == '-') && \
+					(s1[s1_index+2] == '9')) {
+					for(int i = s1[s1_index]; i <= s1[s1_index+2]; ++i){
+						s2[s2_index + (i-s1[s1_index])] = i;
+					}
+					s1_index += 2;
+					s2_index += 10;
+					break;
+				}
+				else {
+					s2[s2_index] = s1[s1_index];
+					s2_index++;
+					break;
+				}
+			default:
+				s2[s2_index] = s1[s1_index];
+				s2_index++;
+				break;
+		}
 	}
+	s2[s2_index] = '\0';	/* need to null-terminate s2 */
 	return;
 }
