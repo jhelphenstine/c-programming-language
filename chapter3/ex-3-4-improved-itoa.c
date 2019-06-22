@@ -9,7 +9,7 @@ void reverse(char from[]);
 
 int main(void)
 {
-	char s[] = {};
+	char s[5] = {};	/* HERE'S THE BLOODY CULPRIT!!! */
 	int8_t n = -128;
 	printf("[DEBUG]: n is: %d\n", n);	/* this is as expected */
 	int8_t o = n;
