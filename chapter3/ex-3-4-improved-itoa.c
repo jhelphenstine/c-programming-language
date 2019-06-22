@@ -11,7 +11,6 @@ int main(void)
 {
 	char s[5] = {};	/* The max we can have is '-128', plus the trailing 0 */
 	int8_t n = -128;
-	int8_t o = n;
 	itoa(n, s);	/* It's my understanding I'm passing n by value, not reference */
 	printf("Converted %d (int) to %s (string)\n", n, s);
 	return 0;
