@@ -9,21 +9,17 @@ void reverse(char from[]);
 
 int main(void)
 {
-	char s[5] = {};	/* HERE'S THE BLOODY CULPRIT!!! */
+	char s[5] = {};	/* The max we can have is '-128', plus the trailing 0 */
 	int8_t n = -128;
-	printf("[DEBUG]: n is: %d\n", n);	/* this is as expected */
 	int8_t o = n;
-	printf("[DEBUG]: o is: %d\n", o);	/* so far, so good */
 	itoa(n, s);	/* It's my understanding I'm passing n by value, not reference */
-	printf("[DEBUG]: n is: %d\n", n);	/* n has changed to 0b110001 */
-	printf("[DEBUG]: o is: %d\n", o);	/* o has changed to 0b101101 */
 	printf("Converted %d (int) to %s (string)\n", n, s);
 	return 0;
 }
 
 void itoa(int8_t n, char s[])
 {
-	int16_t x = n;
+	int16_t x = n;	/* 16 bits allows us to hold the extra sign bit */
 	int16_t sign;
 	int i = 0;
 
