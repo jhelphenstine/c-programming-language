@@ -8,3 +8,8 @@ I went back, now recognizing how I was overwriting my stack (such irony: I wrote
 'char s[5] = {};'
 
 This is big enough to hold '-128' + a null terminator, and the program executes correctly. Fun!
+
+# Chapter complete
+I've completed Chapter 3, where I lingered the longest so far. I've picked up some examples of good habits along the way, and am beginning to understand common errors I've made, so that I can avoid them in the future. 'sizeof(char s[])', for example. I've also taken a detour into input validation. It's not fast; there's no silver bullet function that perfectly guards against invalid input, and I'll try to carry that lesson forward into the next chapters (as well as my future C programming).
+
+Onward to Chapter 4!
