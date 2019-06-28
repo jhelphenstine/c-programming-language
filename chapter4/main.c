@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>	/* for atof.h */
+#include <math.h>	/* for fmodf. I'll pass on implementing that. */
 #include "calc.h"
 
 #define MAXOP 100	/* max size of operand or operator */
@@ -28,10 +29,22 @@ int main(void)
 			break;
 		case '/':
 			op2 = pop();
-			if (op2 != 0.0)
+			if (op2 != 0.0){
 				push(pop() / op2);
-			else
+			}
+			else{
 				printf("[!] Error, cannot divide by zero\n");
+			}
+			break;
+		/* Exercise 4-3 Part I: Extend calculator to include % operator */
+		case '%':
+			op2 = pop();
+			if (op2 != 0.0){
+				push(fmodf(pop(), op2));
+			}
+			else {
+				printf("[!] Error, cannot divide by zero\n");
+			}
 			break;
 		case '\n':
 			printf("\t%.8g\n", pop());
