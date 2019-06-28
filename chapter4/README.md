@@ -7,3 +7,4 @@ To compile exercise 4-3, I used: `gcc -Wall -Werror -Wextra calc.h main.c stack.
 
 ## Miscellany
 I'm switching from `cc` to `gcc`, with the -Wall -Werror -Wextra flags as suggested by my mentor. I got my hand slapped (politely) for declaring an array with {}; this isn't valid post C99, so I'm switching compilers to avail myself of the warnings & error messages that should help me write more compliant code.
+I'm also wondering if the inclusion of the 'how I compiled' line in 4-3 means it's time to explore cmake -- would that let me better organize my repo, and make it easier for others to run these programs? Not that anyone's running this, but it could be good practice nonetheless.
