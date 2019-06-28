@@ -1,5 +1,8 @@
 #define NUMBER '0'	/* signal that a number was found */
 
+/* Exercise 4-3, Part II, extend calc to handle negative numbers */
+extern int sign;	/* keep track of sign */
+
 /* push:	push variable onto the value stack */
 void push(double);
 

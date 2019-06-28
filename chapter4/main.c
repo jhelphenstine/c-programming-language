@@ -15,7 +15,8 @@ int main(void)
 	while ((type = getop(s)) != EOF) {
 		switch (type) {
 		case NUMBER:
-			push(atof(s));
+			push((atof(s)) * sign); /* push the correctly signed value */
+			sign = 1;
 			break;
 		case '+':
 			push(pop() + pop());
@@ -45,6 +46,10 @@ int main(void)
 			else {
 				printf("[!] Error, cannot divide by zero\n");
 			}
+			break;
+		/* Exercise 4-3 Part II: Extend calculator to handle signed values */
+		case '&':
+			/* & is our NOP; part of how we handle negative variables */
 			break;
 		case '\n':
 			printf("\t%.8g\n", pop());

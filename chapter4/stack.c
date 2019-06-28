@@ -5,6 +5,7 @@
 int sp = 0;			/* next free stack position */
 double val[MAXVAL];	/* value stack */
 
+
 /* push: push f onto value stack */
 void push(double f)
 {
