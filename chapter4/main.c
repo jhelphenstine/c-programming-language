@@ -14,6 +14,7 @@ int main(void)
 {
 	int type;
 	double op2;
+	double op1; /* This is now useful as I've used it in 2 cases */
 	char s[MAXOP];
 	int bypass = FALSE;	/* bypass standard newline behavior */
 
@@ -24,6 +25,8 @@ int main(void)
 			sign = 1;
 			bypass = TRUE;
 			break;
+
+		/* BEGIN OPERATIONS */
 		case '+':
 			push(pop() + pop());
 			bypass = FALSE;
@@ -58,6 +61,39 @@ int main(void)
 			}
 			bypass = FALSE;
 			break;
+		/* Exercise 4-5 Part I: provide sin() function */
+		case '~':
+			op2 = sin(pop());
+			push(op2);
+			bypass = TRUE;	/* I think we don't want to cash out immediately */
+			printf("[*] Pushing sin value to stack: %g\n", op2);
+			break;
+		/* Exercise 4-5 Part II: provide natural log function */
+		case '`':
+			op2  = log(pop());
+			push(op2);
+			bypass = TRUE;
+			printf("[*] Pushing natural log to stack: %g\n", op2);
+			break;
+		case '^':
+			op2 = pop();
+			op1 = pop();
+			if((op1 == 0) && (op2 <= 0)){
+				printf("[!] Domain error! Cannot raise 0 to less than 0.\n");
+				sig_clear = TRUE;
+			}
+			else if ((op1 < 0) && (ceil(op2) != op2)){
+				printf("[!] Domain error! Cannot raise negative to non-integer power.\n");
+				sig_clear = TRUE;
+			}
+			else {
+				push(pow(op1, op2));
+			}
+			bypass = FALSE;
+			break;
+		/* END OPERATIONS */
+
+		/* BEGIN CONTROL CODES */
 		/* Exercise 4-3 Part II: Extend calculator to handle signed values */
 		case '&':
 			/* & is our NOP; part of how we handle negative variables */
@@ -76,7 +112,7 @@ int main(void)
 		/* Exercise 4-3 Part III: Swap the stack */
 		case '#':
 			op2 = pop();
-			double op1 = pop(); /* declaring it here as it's only used here */
+			op1 = pop();
 			printf("[*] Old stack: %g, %g\n", op1, op2);
 			push(op2);
 			push(op1);
@@ -90,6 +126,8 @@ int main(void)
 			printf("[*] Stack cleared!\n");
 			bypass = TRUE;
 			break;
+		/* END CONTROL CODES */
+
 		case '\n':
 			if (!bypass){
 				printf("[*] Result: \t%.8g\n", pop());
