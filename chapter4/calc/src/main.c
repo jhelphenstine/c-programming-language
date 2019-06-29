@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>	/* for atof.h */
 #include <math.h>	/* for fmodf. I'll pass on implementing that. */
-#ifdef USE_HEADER
+#include "stack.h"
 #include "calc.h"
-#endif
-#include "config.h"	/* CMake-related */
+#include "calc/config.h"	/* CMake-related */
 
 #define MAXOP 100	/* max size of operand or operator */
 
@@ -16,9 +15,10 @@ int main(void)
 	char s[MAXOP];
 
 	/* Let's use our version number strings for CMake practice */
-	printf("Calculator version %d.%f\n",
+	printf("Calculator version %d.%d.%d\n",
 			calc_VERSION_MAJOR,
-			calc_VERSION_MINOR);
+			calc_VERSION_MINOR,
+			calc_VERSION_BUGFIX);
 	while ((type = getop(s)) != EOF) {
 		switch (type) {
 		case NUMBER:

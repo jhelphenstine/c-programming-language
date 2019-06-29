@@ -1,6 +1,4 @@
 #define NUMBER '0'	/* signal that a number was found */
-#define calc_VERSION_MAJOR @calc_VERSION_MAJOR@
-#define calc_VERSION_MINOR @calc_VERSION_MINOR@
 
 /* Exercise 4-3, Part II, extend calc to handle negative numbers */
 extern int sign;	/* keep track of sign */
