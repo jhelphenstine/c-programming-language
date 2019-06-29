@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>	/* for atof.h */
 #include <math.h>	/* for fmodf. I'll pass on implementing that. */
+#ifdef USE_HEADER
 #include "calc.h"
+#endif
+#include "config.h"	/* CMake-related */
 
 #define MAXOP 100	/* max size of operand or operator */
 

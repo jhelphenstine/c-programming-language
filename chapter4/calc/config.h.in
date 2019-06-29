@@ -1,0 +1,4 @@
+/* Configured options and settings for calc */
+#define calc_VERSION_MAJOR @calc_VERSION_MAJOR@
+#define calc_VERSION_MINOR @calc_VERSION_MINOR@
+#cmakedefine USE_HEADER
