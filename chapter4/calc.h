@@ -1,3 +1,4 @@
+#include <stdbool.h>	/* for our bools */
 #define NUMBER '0'	/* signal that a number was found */
 #define calc_VERSION_MAJOR @calc_VERSION_MAJOR@
 #define calc_VERSION_MINOR @calc_VERSION_MINOR@
@@ -13,6 +14,18 @@ extern bool sig_clear;
 
 /* Array to store variables */
 extern double memory[26];
+
+/* Signal to treat value as a variable */
+extern bool sig_variable;
+
+/* Address in memory[] to store a variable */
+extern int mem_index;
+
+/* Array to track whether or not memory is set */
+extern bool mem_set[26];
+
+/* Flag for pop() behavior */
+extern bool dereference;
 
 /* push:	push variable onto the value stack */
 void push(double);
