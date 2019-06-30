@@ -9,7 +9,10 @@ extern int sign;	/* keep track of sign */
 extern double lastVal;
 
 /* External variable to signal stack clear */
-extern int sig_clear;
+extern bool sig_clear;
+
+/* Array to store variables */
+extern double memory[26];
 
 /* push:	push variable onto the value stack */
 void push(double);

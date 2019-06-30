@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>	/* for atof.h */
 #include <math.h>	/* for fmodf. I'll pass on implementing that. */
+#include <stdbool.h>	/* for flags */
 #include "calc.h"
 
 #define MAXOP 100	/* max size of operand or operator */
-#define TRUE 1
-#define FALSE 0
 
-int sig_clear = FALSE; /* signal to clear stack */
+bool sig_clear = false; /* signal to clear stack */
 
 /* reverse Polish calculator */
 int main(void)
@@ -16,29 +15,29 @@ int main(void)
 	double op2;
 	double op1; /* This is now useful as I've used it in 2 cases */
 	char s[MAXOP];
-	int bypass = FALSE;	/* bypass standard newline behavior */
+	bool bypass = false;	/* bypass standard newline behavior */
 
 	while ((type = getop(s)) != EOF) {
 		switch (type) {
 		case NUMBER:
 			push((atof(s)) * sign); /* push the correctly signed value */
 			sign = 1;
-			bypass = TRUE;
+			bypass = true;
 			break;
 
 		/* BEGIN OPERATIONS */
 		case '+':
 			push(pop() + pop());
-			bypass = FALSE;
+			bypass = false;
 			break;
 		case '*':
 			push(pop() * pop());
-			bypass = FALSE;
+			bypass = false;
 			break;
 		case '-':
 			op2 = pop();
 			push(pop() - op2);
-			bypass = FALSE;
+			bypass = false;
 			break;
 		case '/':
 			op2 = pop();
@@ -48,7 +47,7 @@ int main(void)
 			else{
 				printf("[!] Error, cannot divide by zero\n");
 			}
-			bypass = FALSE;
+			bypass = false;
 			break;
 		/* Exercise 4-3 Part I: Extend calculator to include % operator */
 		case '%':
@@ -59,20 +58,20 @@ int main(void)
 			else {
 				printf("[!] Error, cannot divide by zero\n");
 			}
-			bypass = FALSE;
+			bypass = false;
 			break;
 		/* Exercise 4-5 Part I: provide sin() function */
 		case '~':
 			op2 = sin(pop());
 			push(op2);
-			bypass = TRUE;	/* I think we don't want to cash out immediately */
+			bypass = true;	/* I think we don't want to cash out immediately */
 			printf("[*] Pushing sin value to stack: %g\n", op2);
 			break;
 		/* Exercise 4-5 Part II: provide natural log function */
 		case '`':
 			op2  = log(pop());
 			push(op2);
-			bypass = TRUE;
+			bypass = true;
 			printf("[*] Pushing natural log to stack: %g\n", op2);
 			break;
 		case '^':
@@ -80,16 +79,16 @@ int main(void)
 			op1 = pop();
 			if((op1 == 0) && (op2 <= 0)){
 				printf("[!] Domain error! Cannot raise 0 to less than 0.\n");
-				sig_clear = TRUE;
+				sig_clear = true;
 			}
 			else if ((op1 < 0) && (ceil(op2) != op2)){
 				printf("[!] Domain error! Cannot raise negative to non-integer power.\n");
-				sig_clear = TRUE;
+				sig_clear = true;
 			}
 			else {
 				push(pow(op1, op2));
 			}
-			bypass = FALSE;
+			bypass = false;
 			break;
 		/* END OPERATIONS */
 
@@ -101,13 +100,13 @@ int main(void)
 		/* Exercise 4-4 Part I: Show last push val without popping */
 		case '?':
 			printf("[*] Last pushed val is: %g\n", lastVal);
-			bypass = TRUE;
+			bypass = true;
 			break;
 		/* Exercise 4-4 Part II: Duplicate last stack item (re-push) */
 		case '!':
 			printf("[*] Duplicating last stack value: %g\n", lastVal);
 			push(lastVal);
-			bypass = TRUE;
+			bypass = true;
 			break;
 		/* Exercise 4-3 Part III: Swap the stack */
 		case '#':
@@ -117,24 +116,24 @@ int main(void)
 			push(op2);
 			push(op1);
 			printf("[*] New stack: %g, %g\n", op2, op1);
-			bypass = TRUE;
+			bypass = true;
 			break;
 		/* Exercise 4-4 Part IV: Clear the stack */
 		case '@':
-			sig_clear = TRUE;
+			sig_clear = true;
 			push(0);
 			printf("[*] Stack cleared!\n");
-			bypass = TRUE;
+			bypass = true;
 			break;
 		/* END CONTROL CODES */
 
 		case '\n':
 			if (!bypass){
 				printf("[*] Result: \t%.8g\n", pop());
-				sig_clear = TRUE;
+				sig_clear = true;
 				push(0);	/* triggers stack clear because sig_clear is set */
 			}
-			bypass = FALSE;
+			bypass = false;
 			break;
 		default:
 			printf("[!] Error, unknown command: %s\n", s);

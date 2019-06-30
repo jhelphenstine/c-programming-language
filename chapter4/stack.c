@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include "calc.h"
 #define MAXVAL 100	/* maximum depth of val stack */
 
@@ -14,7 +15,7 @@ void push(double f)
 		for (int i = 0; i < sp; i++){
 			val[i] = 0.0;	/* zero out val */
 		}
-		sig_clear = 0;	/* reset the clear flag */
+		sig_clear = false;	/* reset the clear flag */
 	}
 	else if(sp < MAXVAL){
 		val[sp++] = f;
