@@ -13,7 +13,7 @@ extern double lastVal;
 extern bool sig_clear;
 
 /* Array to store variables */
-extern double memory[26];
+extern double memory[27];
 
 /* Signal to treat value as a variable */
 extern bool sig_variable;
@@ -22,7 +22,7 @@ extern bool sig_variable;
 extern int mem_index;
 
 /* Array to track whether or not memory is set */
-extern bool mem_set[26];
+extern bool mem_set[27];
 
 /* Flag for pop() behavior */
 extern bool dereference;

@@ -24,18 +24,10 @@ int main(void)
 	while ((type = getop(s)) != EOF) {
 		switch (type) {
 		case NUMBER:
-			printf("main.c, case NUMBER: I'm pushing %f\n", atof(s) * sign);
-			printf("main.c, case NUMBER: I'm setting sig_variable to false\n");
 			sig_variable = false;
 			push((atof(s)) * sign); /* push the correctly signed value */
 			sign = 1;
 			bypass = true;
-			break;
-
-		/* Special variable: refers to last value on stack. I'm sure
-			this won't cause me any heartache... */
-		case '$':
-			// WIP; first, commit what works, DBG messages and all.
 			break;
 
 		/* BEGIN OPERATIONS */
@@ -130,13 +122,10 @@ int main(void)
 				else {
 					/* We will assign op1 to the memory referred to by op2 */
 					/* convert op2 to index value == subtract 'A' */
-					printf("main.c, case =: op2 is: %g; will set to  %g - 'A'\n", op2, op2);
 					mem_index = ((int)op2 - 'A');
-					printf("main.c, case =: I set mem_index to %d\n", mem_index);
 					push(op1);	/* We've set mem_index, push the value */
 					bypass = true;
 					sig_clear = true; /* clear the stack */
-					printf("main.c, case =: Triggering stack clear\n");
 					push(0.0);	/* trigger stack clear */
 					break;
 				}
@@ -186,18 +175,24 @@ int main(void)
 
 		case '\n':
 			if (!bypass){
-				printf("[*] Result: \t%.8g\n", pop());
-				/* DEBUG: Let's look at memory[] */
-				printf("Memory: ");
-				for (int i = 0; i < 26; i++){
-					printf("%g ", memory[i]);
-				}
-				printf("\n");
+				double result = pop();
+				printf("[*] Result: \t%.8g\n", result);
+				mem_index = 26;
+				sig_variable = true;
+				push(result);
 				sig_clear = true;
 				push(0);	/* triggers stack clear because sig_clear is set */
 			}
 			bypass = false;
 			break;
+
+		/* Special variable $ refers to the last pushed value */
+		case '$':
+			sig_variable = true;
+			push(91.0);	/* $ (27) + A (65), minus 1 for 0-base */
+			bypass = true;
+			break;
+
 		default:
 		/* If we've received a variable ([A-Z]||[a-z])||$ */
 		/* This isn't the same as handling '='; this is just correctly storing
@@ -205,8 +200,6 @@ int main(void)
 			we're handling this in the default case. */
 			if(('A' <= toupper(s[0])) && (toupper(s[0]) <= 'Z')){
 				s[0] = toupper(s[0]);
-				printf("main.c: We received a letter\n");
-				printf("main.c: s[0] is: %d\n", toupper(s[0]));
 				sig_variable = true;	/* treat this as a variable */
 				push((double)s[0]);
 				bypass = true;
