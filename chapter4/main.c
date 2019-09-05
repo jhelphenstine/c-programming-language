@@ -171,6 +171,15 @@ int main(void)
 			printf("[*] Stack cleared!\n");
 			bypass = true;
 			break;
+		/* Exercise 4-7: ungets(s) to push  entire string back to input */
+		case ';':
+			bypass = true;	/* bypass normal functionality - control code */
+			/* Let's assume ';' is the last char, and strip it off */
+			
+			ungets(s);	/* s represents the current string */
+			/* Q: How can I trigger this? */
+			/* Possible answer: what if ; is the last character received? */
+			break;
 		/* END CONTROL CODES */
 
 		case '\n':

@@ -41,3 +41,6 @@ int getch(void);
 
 /* ungetch:	push character back on input */
 void ungetch(int);
+
+/* ungets: push string back on input. The trigger is a semicolon, ; */
+void ungets(char []);

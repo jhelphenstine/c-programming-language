@@ -25,3 +25,19 @@ void ungetch(int c)	/* push character back on input */
 		buf[bufp++] = c;
 	}
 }
+
+/* ungets(s) -- unget a string.
+	WARNING: Author assumes this function is only called from
+	main, and that there is a ; at the end of the string.
+	If this is not the case, undefined behavior is expected.
+*/
+/* Called by:
+	main()
+*/
+void ungets(char s[]) /* pushes string back on input */
+{
+	int iter = 0;		/* iterator */
+	while (s[iter] != ';'){
+		ungetch(s[iter]);
+	}
+}
