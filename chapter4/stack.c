@@ -11,6 +11,9 @@ bool mem_set[27] = {false};	/* tracks if memory is set */
 double lastVal = 0.0;	/* define lastVar */
 
 /* push: push f onto value stack */
+/* Called by:
+	main()
+*/
 void push(double f)
 {
 	/* Check to see if we should clear the stack */
@@ -46,6 +49,9 @@ void push(double f)
 }
 
 /* pop: pop and return top value from stack */
+/* Called by:
+	main()
+*/
 double pop(void)
 {
 	if (sp > 0){

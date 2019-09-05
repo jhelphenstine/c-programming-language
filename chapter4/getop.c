@@ -6,6 +6,9 @@
 int sign = 1;	/* defining global variable sign */
 
 /* getop: get next operator or numeric operand */
+/* Called by:
+	main()
+*/
 int getop(char s[])
 {
 	int i, c;
