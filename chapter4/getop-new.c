@@ -24,6 +24,9 @@ int getop(char s[])
 	/* Check for stack clear */
 	if(sig_clear){
 		my_index = 0;
+		end_of_input = false;
+		final_EOF = false;
+		sign = 1;
 	}
 
 	/* main is expecting a newline to signal 'resolve the line'.
@@ -32,18 +35,21 @@ int getop(char s[])
 	/* Check for final EOF. */
 	/* This check comes first to prevent repeating end_of_input check */
 	if(final_EOF){
-		return EOF;
+//		return EOF;
+		my_index = 0;
 	}
 	/* Check for end of input */
 	if(end_of_input){
+		end_of_input = false;
 		final_EOF = true;
 		return '\n';
 	}
 	/* Receive input - only if my_index is set to 0. */
 	if(my_index == 0){
+		printf("DEBUG: New getLine requested!\n");
 		memset(input, 0, MAXINPUT);
 		input_length = getLine(input, MAXINPUT);
-		input[input_length-1]='\0';
+		//input[input_length-1]='\0';
 	}
 	/* Now we have our input; what next? */
 	/* Let's process the input for signed values, and replace the sign with a
@@ -57,15 +63,6 @@ int getop(char s[])
 			}
 		}
 	}
-	/* Now we've a string of properly signed operands, and operators */
-	/* Each time we return something, we need to know where to pick up the next
-	 * time main calls getop(). So, we'll need a state tracker variable. See the
-	 * static variable 'my_index'. */
-
-	/* Now our logic should be: check for whitespace / tabs, following these
-	 * return either an operand or an operator, and advance the my_index to begin
-	 * at the *next* position in the array on subsequent calls, unless that
-	 * would hit EOF. */
 
 	/* If the input starts with a null terminator, return EOF. */
 	/* This is born from debugging. */
@@ -76,7 +73,7 @@ int getop(char s[])
 
 
 	int i = my_index;
-	while (input[i] == ' ' || input[i] == '\t'){
+	while ((s[0] = input[i]) == ' ' || input[i] == '\t'){
 		i++; /* skip whitespace or tabs */
 		my_index++;
 	}
@@ -98,30 +95,25 @@ int getop(char s[])
 	}
 	i = 0; /* reusing our iterator variable */
 	if (isdigit(c)){	/* collect integer part */
-		int j = i;
-		while(isdigit(s[++i] = c = input[my_index+j])){
-			j++;
+		while(isdigit(s[i++] = c = input[my_index])){
+			my_index++;
 			;
+		}
+	}
+	if (c == '.'){	/* collect fraction part */
+		my_index++;
+		//s[i] = '.';
+		while (isdigit(s[i++] = c = input[my_index])){
+			my_index++;
 		}
 	}
 	s[i] = '\0'; /* we need to terminate this */
-	if (c == '.'){	/* collect fraction part */
-		int j = i;
-		while (isdigit(s[++i] = c = input[my_index+j])){
-			;
-		}
-	}
-	s[i] = '\0';
 
 	if((my_index+1) < input_length){
 		my_index++; /* Advance my_index for next invocation */
 	}
 	if(input[my_index] == 0){
 		end_of_input = true;
-	}
-	printf("DEBUG: Printing out each value in s:\n");
-	for(int x = 0; x < input_length; x++){
-		printf("%d: %d\n", x, input[x]);
 	}
 	return NUMBER;
 }

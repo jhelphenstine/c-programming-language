@@ -46,7 +46,6 @@ void push(double f)
 	else {
 		printf("[!] Error: Stack full! Cannot push %g\n", f);
 	}
-	printf("DBG: f is : %f\n", f);
 }
 
 /* pop: pop and return top value from stack */

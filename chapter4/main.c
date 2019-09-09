@@ -3,6 +3,7 @@
 #include <math.h>	/* for fmodf. I'll pass on implementing that. */
 #include <stdbool.h>	/* for flags */
 #include <ctype.h>		/* for toupper */
+#include <string.h>	/* for memset */
 #include "calc.h"
 
 #define MAXOP 100	/* max size of operand or operator */
@@ -24,20 +25,14 @@ int main(void)
 	while ((type = getop(s)) != EOF) {
 		switch (type) {
 		case NUMBER:
-			printf("DEBUG: Pushing %s onto stack.\n", s);
-			printf("DEBUG: s is %s\n", s);
-			printf("DEBUG: atof(s) is %f\n", atof(s));
-			printf("DEBUG: atoi(s) is %d\n", atoi(s));
 			sig_variable = false;
 			push((atof(s)) * sign); /* push the correctly signed value */
-			printf("DEBUG: I pushed %f onto the stack.\n", atof(s));
 			sign = 1;
 			bypass = true;
 			break;
 
 		/* BEGIN OPERATIONS */
 		case '+':
-			printf("DEBUG: Addition operation.\n");
 			dereference = true;
 			push(pop() + pop());
 			bypass = false;
@@ -223,6 +218,7 @@ int main(void)
 			printf("[!] Error, unknown command: %s\n", s);
 			break;
 		}
+		memset(s, 0, MAXOP);
 	}
 	return 0;
 }
