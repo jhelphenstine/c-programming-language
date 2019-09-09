@@ -12,6 +12,9 @@ extern double lastVal;
 /* External variable to signal stack clear */
 extern bool sig_clear;
 
+/* External variable to tell getop that the stack was cleared */
+extern bool sig_stack_cleared;
+
 /* Array to store variables */
 extern double memory[27];
 

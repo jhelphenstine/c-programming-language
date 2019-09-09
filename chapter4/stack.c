@@ -9,6 +9,7 @@ bool var[MAXVAL] = {false};	/* tracks values representing variables */
 double memory[27] = {0.0};	/* holds variables */
 bool mem_set[27] = {false};	/* tracks if memory is set */
 double lastVal = 0.0;	/* define lastVar */
+bool sig_stack_cleared = false;
 
 /* push: push f onto value stack */
 /* Called by:
@@ -24,6 +25,7 @@ void push(double f)
 		}
 		sp = 0; /* has this been my problem? */
 		sig_clear = false;	/* reset the clear flag */
+		sig_stack_cleared = true; /* tell getop the stack was cleared */
 	}
 	else if(sp < MAXVAL){
 		/* This is where we need to check if we're pushing to memory */
