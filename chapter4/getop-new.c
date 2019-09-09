@@ -9,6 +9,9 @@
 /* from calc.h: NUMBER is defined as '0', signifies
 	we've placed a numeric operand into the provided
 	character array */
+/* Called by:
+	main.c - main()
+	*/
 
 static int my_index = 0;
 static int input_length = 0;

@@ -23,7 +23,7 @@ void push(double f)
 			val[i] = 0.0;	/* zero out val */
 			var[i] = false;	/* zero out var */
 		}
-		sp = 0; /* has this been my problem? */
+		sp = 0;
 		sig_clear = false;	/* reset the clear flag */
 		sig_stack_cleared = true; /* tell getop the stack was cleared */
 	}
@@ -69,7 +69,6 @@ double pop(void)
 			}
 			if(mem_set[index]){
 				/* Memory is set; we can return value */
-				//sig_variable = true;
 				var[vp] = false;	/* clear this flag */
 				sp--;	/* still need to decrement this */
 				return memory[index]; /* return value */
@@ -77,7 +76,6 @@ double pop(void)
 			else {
 				/* convert to string for error output */
 				var[vp] = false;	/* clear this flag */
-				//sig_variable = true;
 				sp--;	/* still need to decrement this */
 				return 0.0;
 			}

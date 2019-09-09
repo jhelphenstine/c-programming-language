@@ -218,7 +218,7 @@ int main(void)
 			printf("[!] Error, unknown command: %s\n", s);
 			break;
 		}
-		memset(s, 0, MAXOP);
+		//memset(s, 0, MAXOP);
 	}
 	return 0;
 }
