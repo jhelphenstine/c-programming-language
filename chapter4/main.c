@@ -24,14 +24,20 @@ int main(void)
 	while ((type = getop(s)) != EOF) {
 		switch (type) {
 		case NUMBER:
+			printf("DEBUG: Pushing %s onto stack.\n", s);
+			printf("DEBUG: s is %s\n", s);
+			printf("DEBUG: atof(s) is %f\n", atof(s));
+			printf("DEBUG: atoi(s) is %d\n", atoi(s));
 			sig_variable = false;
 			push((atof(s)) * sign); /* push the correctly signed value */
+			printf("DEBUG: I pushed %f onto the stack.\n", atof(s));
 			sign = 1;
 			bypass = true;
 			break;
 
 		/* BEGIN OPERATIONS */
 		case '+':
+			printf("DEBUG: Addition operation.\n");
 			dereference = true;
 			push(pop() + pop());
 			bypass = false;

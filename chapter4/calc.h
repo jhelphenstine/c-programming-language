@@ -44,3 +44,6 @@ void ungetch(int);
 
 /* ungets: push string back on input. The trigger is a semicolon, ; */
 void ungets(char []);
+
+/* getLine: return size of a line; populates a char [] from user input */
+int getLine(char [], int);
