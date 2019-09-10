@@ -9,6 +9,7 @@ bool var[MAXVAL] = {false};	/* tracks values representing variables */
 double memory[27] = {0.0};	/* holds variables */
 bool mem_set[27] = {false};	/* tracks if memory is set */
 double lastVal = 0.0;	/* define lastVar */
+bool sig_stack_cleared = false;
 
 /* push: push f onto value stack */
 /* Called by:
@@ -22,8 +23,9 @@ void push(double f)
 			val[i] = 0.0;	/* zero out val */
 			var[i] = false;	/* zero out var */
 		}
-		sp = 0; /* has this been my problem? */
+		sp = 0;
 		sig_clear = false;	/* reset the clear flag */
+		sig_stack_cleared = true; /* tell getop the stack was cleared */
 	}
 	else if(sp < MAXVAL){
 		/* This is where we need to check if we're pushing to memory */
@@ -46,7 +48,6 @@ void push(double f)
 	else {
 		printf("[!] Error: Stack full! Cannot push %g\n", f);
 	}
-	printf("DBG: f is : %f\n", f);
 }
 
 /* pop: pop and return top value from stack */
@@ -68,7 +69,6 @@ double pop(void)
 			}
 			if(mem_set[index]){
 				/* Memory is set; we can return value */
-				//sig_variable = true;
 				var[vp] = false;	/* clear this flag */
 				sp--;	/* still need to decrement this */
 				return memory[index]; /* return value */
@@ -76,7 +76,6 @@ double pop(void)
 			else {
 				/* convert to string for error output */
 				var[vp] = false;	/* clear this flag */
-				//sig_variable = true;
 				sp--;	/* still need to decrement this */
 				return 0.0;
 			}

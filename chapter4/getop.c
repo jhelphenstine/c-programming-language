@@ -50,9 +50,5 @@ int getop(char s[])
 	if (c != EOF){
 		ungetch(c);
 	}
-	printf("DEBUG: Printing out each value in s\n");
-	for (int x = 0; x < 2; x++){
-		printf("%d: %d\n", x, s[x]);
-	}
 	return NUMBER;
 }
