@@ -5,8 +5,6 @@
 #define MAX 100
 
 int getline_p(char *s, int lim);
-int getLine(char s[], int lim);
-
 
 int main()
 {
@@ -15,23 +13,6 @@ int main()
 	printf("%s has %d bytes\n", s, length);
 	return 0;
 }
-
-
-int getLine(char s[], int lim)
-{
-	int c, i;
-
-	i = 0;
-	while((--lim > 0) && ((c = getchar()) != EOF) && (c != '\n')){
-		s[i++] = c;
-	}
-	if (c == '\n'){
-		s[i++] = c;
-	}
-	s[i] = '\0';
-	return i;
-}
-
 
 /* getline: get line into s, return length */
 /* this version uses pointers instead of array indices */
