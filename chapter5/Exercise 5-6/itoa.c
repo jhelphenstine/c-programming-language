@@ -12,7 +12,8 @@ char * itoa(int i);
 int main(){
     int test = TEST;
     char * result = itoa(test);
-    printf("Result: %s\n", result);
+    printf("Debugging: strlen of result = %ld\n", strlen(result));
+    printf("DBG: (string) result returned from itoa(): %s\n", result);
     return 0;
 }
 
@@ -30,8 +31,9 @@ char * itoa(int i)
     }
 
     /* Extract our characters */
+    printf("DBG: (integer) *p inside itoa() = %d\n", *p);
     int c;
-    while (c = (*p / x)){
+    while ((c = (*p / x))){
         *presult = c + '0';
         *p -= x * c;    /* remove a digit from p */
         presult++;
@@ -43,6 +45,7 @@ char * itoa(int i)
     *presult = '\0';
     presult = result;
     /* If the following line is commented out, main will not print a result. */
-    printf("DBG: result = %s\n", result);
+    //printf("DBG: strlen of result inside itoa() = %ld\n", strlen(result));
+    printf("DBG: (string) result inside itoa() = %s\n", result);
     return presult;
 }
