@@ -7,19 +7,18 @@
 #define TEST 123456
 
 /* itoa: convert integer to string */
-char * itoa(int i);
+char * itoa(char * result, int i);
 
 int main(){
     int test = TEST;
-    char * result = itoa(test);
-    printf("Debugging: strlen of result = %ld\n", strlen(result));
-    printf("DBG: (string) result returned from itoa(): %s\n", result);
+    char buffer[MAX];
+    char * ptr = buffer;
+    printf("Result returned from itoa(): %s\n", itoa(ptr, test));
     return 0;
 }
 
-char * itoa(int i)
+char * itoa(char * result, int i)
 {
-    char result[MAX];
     char *presult;
     presult = result;
     int *p = &i;
@@ -31,7 +30,6 @@ char * itoa(int i)
     }
 
     /* Extract our characters */
-    printf("DBG: (integer) *p inside itoa() = %d\n", *p);
     int c;
     while ((c = (*p / x))){
         *presult = c + '0';
@@ -43,9 +41,5 @@ char * itoa(int i)
         }
     }
     *presult = '\0';
-    presult = result;
-    /* If the following line is commented out, main will not print a result. */
-    //printf("DBG: strlen of result inside itoa() = %ld\n", strlen(result));
-    printf("DBG: (string) result inside itoa() = %s\n", result);
-    return presult;
+    return result;
 }
