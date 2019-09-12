@@ -1,7 +1,7 @@
 /* getline: get line into s, return length */
-#include <stdio.h>
+#include <stdio.h>	/* necessary for getchar */
 
-int getLine(char s[], int lim)
+int getLine(char *s, int lim)
 {
 	int c, i;
 

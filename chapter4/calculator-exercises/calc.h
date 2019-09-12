@@ -37,7 +37,7 @@ void push(double);
 double pop(void);
 
 /* getop:	get next operator or numeric operand */
-int getop(char []);
+int getop(char *);
 
 /* getch:	get a (possibly pushed back) character */
 int getch(void);
@@ -46,7 +46,7 @@ int getch(void);
 void ungetch(int);
 
 /* ungets: push string back on input. The trigger is a semicolon, ; */
-void ungets(char []);
+void ungets(char *);
 
 /* getLine: return size of a line; populates a char [] from user input */
-int getLine(char [], int);
+int getLine(char *, int);
