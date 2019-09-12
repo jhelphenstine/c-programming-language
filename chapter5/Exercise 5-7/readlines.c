@@ -6,14 +6,14 @@
 char *alloc(int);
 
 /* readlines: read input lines */
-int readlines(char *lineptr[], int maxlines)
+int readlines(char *lineptr[], int maxlines, char *buffp)
 {
     int len, nlines;        /* nlines = number of lines we're storing */
     char *p, line[MAXLEN];
 
     nlines = 0;
     while((len = getline_p(line, MAXLEN)) > 0){
-        if(nlines >= maxlines || (p = alloc(len)) == NULL){
+        if(nlines >= maxlines || (buffp /* = alloc(len)*/) == NULL){
             return -1;  // Error; can't read any more lines
         }
         else {

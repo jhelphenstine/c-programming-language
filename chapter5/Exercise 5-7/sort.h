@@ -1,9 +1,10 @@
 /* read lines for sorting */
 /* @params: char *  pointer to array of pointers
             int     number of lines to read
+            char *  index pointer within a buffer
 
     @return: int    number of lines read */
-int readlines(char *[], int);
+int readlines(char *[], int, char *buffp);
 
 /* write output lines */
 /* @params: char *  pointer to array of pointers
@@ -19,6 +20,6 @@ void qsort(char *[], int, int);
 /* getline: get a line of input */
 int getline_p(char *, int);
 
-char *alloc(int n);  /* return pointer to n characters */
+//char *alloc(int n);  /* return pointer to n characters */
 
-void afree(char *p); /* free storage pointed to by p */
+//void afree(char *p); /* free storage pointed to by p */
