@@ -14,6 +14,14 @@ void month_day(int year, int yearday, int *pmonth, int *pday);
 int main()
 {
     int d = day_of_year(2019, 2, 35);
+    if(d == -1){
+        printf("Error - bad month provided. Must be between 1 & 12. \n");
+        return 0;
+    }
+    if(d == -2){
+        printf("Error - bad day provided. Must be within 1 and [28,29,30,31] depending on month.\n");
+        return 0;
+    }
     int month;
     int day;
     month_day(2019, d, &month, &day);
@@ -27,6 +35,14 @@ int day_of_year(int year, int month, int day)
     int i, leap;
 
     leap = year%4 == 0 && year%100 != 0 || year%400 == 0;
+    /* error checking */
+    if ((month > 12) || (month < 1)){
+        return -1;
+    }
+    if ((day < 1) || (day > daytab[leap][month])){
+        return -2;
+    }
+
     for(i = 1; i < month; i++){
         day += daytab[leap][i];
     }
