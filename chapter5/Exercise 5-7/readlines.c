@@ -17,7 +17,7 @@ int readlines(char *lineptr[], int maxlines)
             return -1;  // Error; can't read any more lines
         }
         else {
-            line[len-1] = '0'; /* delete newlines */
+            line[len-1] = 0; /* delete newlines */
             strcpy(p, line);
             lineptr[nlines++] = p;
         }
