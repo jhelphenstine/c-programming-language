@@ -11,14 +11,15 @@ int day_of_year(int year, int *month, int *day);
 /* month_day: set month, day from day of year */
 void month_day(int *year, int *yearday, int *pmonth, int *pday);
 
+// Driver code
 int main()
 {
     /* TEST DATA */
-    int day = 29;
+    int day = 31;
     int month = 3;
-    int year = 2019;
+    int year = 2017;
 
-    int yearday = day_of_year(2019, &month, &day);
+    int yearday = day_of_year(year, &month, &day);
     if(yearday == -1){
         printf("Error - bad month provided. Must be between 1 & 12. \n");
         return 0;
@@ -41,17 +42,19 @@ int day_of_year(int year, int *month, int *day)
     int i, leap;
     int *pday = day;
     int *pmonth = month;
+    char (*pdaytab)[1] = daytab;
 
-    leap = (year%4 == 0 && year%100 != 0) || year%400 == 0;
+    leap = ((year%4 == 0) && (year%100 != 0)) || (year%400 == 0);
+    pdaytab += (leap*13);
     /* error checking */
     if ((*pmonth > 12) || (*pmonth < 1)){
         return -1;  /* invalid month */
     }
-    if ((*pday < 1) || (*pday > daytab[leap][*pmonth])){
+    if ((*pday < 1) || (*pday > *pdaytab[*pmonth])){
         return -2;  /* invalid day of month */
     }
     for(i = 1; i < *pmonth; i++){
-        *pday += daytab[leap][i];
+        *pday += *pdaytab[i];
     }
     return *pday;
 }
@@ -61,14 +64,17 @@ void month_day(int *year, int *yearday, int *pmonth, int *pday)
     int i, leap;
     int *pyear = year;
     int *pyearday = yearday;
+    char (*pdaytab)[1] = daytab;
 
-    leap = (*pyear%4 == 0 && *pyear%100 != 0) || *pyear%400 == 0;
+    leap = ((*pyear%4 == 0) && (*pyear%100 != 0)) || *pyear%400 == 0;
+    pdaytab += (leap*13);
 
     for(i = 1; *pyearday > daytab[leap][i]; i++){
-        *pyearday -= daytab[leap][i];
+        *pyearday -= *pdaytab[i];
     }
     *pmonth = i;
     *pday = *pyearday;
+
 
     /* Error handling */
     if ((*pyearday > (365 + leap)) || (*pyearday < 1)){
