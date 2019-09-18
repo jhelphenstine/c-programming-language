@@ -19,3 +19,14 @@ Completing 5-6 gave me practice with refactoring prior code. I learned I'm glad 
 
 ## Exercise 5-7
 I hadn't yet transcribed alloc, but this exercise will call for it. That's just as well - while I know it's a far cry from malloc, it should help me start thinking in terms of allocating blocks for use, as well as freeing them upon completion. I note the provided examples for 5-7 don't use a free(), so I'll look to see if it makes sense to add something like that as 'good housekeeping'.
+
+## Exercise 5-9
+Pointers are really clicking for me after Exercise 5-9. ayayron helped me grok
+the proper way to handle arithmetic, and this exercise was very useful.
+
+## Exercise 5-10
+It's fun to find assignments that ask to replicate basic components of the Linux
+environment, such as `expr`. This one gave me unexpected behavior - because the
+example they give includes a * which expands to a directory listing in bash.
+This probably wasn't a problem in 1978 :) Also, pointers make functions such as
+`push()` and `pop()` much quicker to write.
