@@ -20,7 +20,7 @@ int main()
     /* TEST DATA */
     int day = 31;
     int month = 3;
-    int year = 2017;
+    int year = 2016;
 
     int yearday = day_of_year(year, month, day);
     if(yearday == -1){
@@ -49,8 +49,11 @@ int day_of_year(int year, int month, int day)
 {
     int i;
     printf("leap year?: %d\n", is_leapyear(year));
-    char (*pdaytab)[13] = daytab;
-    pdaytab += (is_leapyear(year));
+    char (*pdaytab)[13] = daytab[is_leapyear(year)];
+    //pdaytab += (is_leapyear(year) * 13);
+    for (i = 0; i < 13; i++){
+        printf("*pdaytab[i] = %d\n", *pdaytab[i]);
+    }
 
     /* error checking */
     if ((month > 12) || (month < 1)){
@@ -69,8 +72,8 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 {
     int i, leap;
 
-    char (*pdaytab)[13] = daytab;
-    pdaytab += (is_leapyear(year));
+    char (*pdaytab)[13] = daytab[is_leapyear(year)];
+    //pdaytab += (is_leapyear(year) * 13);
 
     for(i = 1; yearday > daytab[leap][i]; i++){
         yearday -= *pdaytab[i];
