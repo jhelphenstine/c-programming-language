@@ -18,8 +18,8 @@ int is_leapyear(int year);
 int main()
 {
     /* TEST DATA */
-    int day = 31;
-    int month = 3;
+    int day = 29;
+    int month = 2;
     int year = 2016;
 
     int yearday = day_of_year(year, month, day);
@@ -48,22 +48,18 @@ int is_leapyear(int year)
 int day_of_year(int year, int month, int day)
 {
     int i;
-    printf("leap year?: %d\n", is_leapyear(year));
-    char (*pdaytab)[13] = daytab[is_leapyear(year)];
-    //pdaytab += (is_leapyear(year) * 13);
-    for (i = 0; i < 13; i++){
-        printf("*pdaytab[i] = %d\n", *pdaytab[i]);
-    }
+    char *pdaytab = daytab;
+    pdaytab += is_leapyear(year) ? 13 : 0;
 
     /* error checking */
     if ((month > 12) || (month < 1)){
         return -1;  /* invalid month */
     }
-    if ((day < 1) || (day > *pdaytab[month])){
+    if ((day < 1) || (day > *(pdaytab + month))){
         return -2;  /* invalid day of month */
     }
     for(i = 1; i < month; i++){
-        day += *pdaytab[i];
+        day += *(pdaytab + i);
     }
     return day;
 }
@@ -71,12 +67,14 @@ int day_of_year(int year, int month, int day)
 void month_day(int year, int yearday, int *pmonth, int *pday)
 {
     int i, leap;
+    leap = is_leapyear(year);
 
-    char (*pdaytab)[13] = daytab[is_leapyear(year)];
-    //pdaytab += (is_leapyear(year) * 13);
+    char *pdaytab = daytab;
+    pdaytab += leap ? 13 : 0;
 
-    for(i = 1; yearday > daytab[leap][i]; i++){
-        yearday -= *pdaytab[i];
+    //for(i = 1; yearday > daytab[leap][i]; i++){
+    for(i = 1; yearday > *(pdaytab + i); i++){
+        yearday -= *(pdaytab + i);
     }
     *pmonth = i;
     *pday = yearday;
