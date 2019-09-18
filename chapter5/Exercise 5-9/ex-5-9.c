@@ -49,17 +49,18 @@ int day_of_year(int year, int month, int day)
 {
     int i;
     printf("leap year?: %d\n", is_leapyear(year));
-    char (*pdaytab)[13] = daytab[(is_leapyear(year))*13];
+    char (*pdaytab)[13] = daytab;
+    pdaytab += (is_leapyear(year));
 
     /* error checking */
     if ((month > 12) || (month < 1)){
         return -1;  /* invalid month */
     }
-    if ((day < 1) || (day > pdaytab[month])){
+    if ((day < 1) || (day > *pdaytab[month])){
         return -2;  /* invalid day of month */
     }
     for(i = 1; i < month; i++){
-        day += pdaytab[i];
+        day += *pdaytab[i];
     }
     return day;
 }
@@ -68,7 +69,8 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 {
     int i, leap;
 
-    char (*pdaytab)[13] = daytab[(is_leapyear(year)) * 13];
+    char (*pdaytab)[13] = daytab;
+    pdaytab += (is_leapyear(year));
 
     for(i = 1; yearday > daytab[leap][i]; i++){
         yearday -= *pdaytab[i];
